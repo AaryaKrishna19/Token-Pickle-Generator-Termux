@@ -1,0 +1,6 @@
+# NOTE: cryptography is intentionally NOT listed here.
+# On Termux it's installed via `pkg install python-cryptography` (setup_termux.sh
+# does this for you) — a prebuilt binary. If pip tries to install it, it will
+# attempt to compile from source, which hangs on-device building Rust code.
+google-auth-oauthlib>=1.2.0
+google-auth>=2.29.0
