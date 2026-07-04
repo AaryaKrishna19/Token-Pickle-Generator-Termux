@@ -21,29 +21,31 @@ import pickle
 import sys
 from pathlib import Path
 
+from ui import Ui
+
 
 def main():
     parser = argparse.ArgumentParser(description="Extract client_id/secret/refresh_token from token.pickle")
     parser.add_argument("--token", default="token.pickle", help="Path to token.pickle (default: token.pickle)")
-    parser.add_argument("--json", action="store_true", help="Print as JSON instead of plain text")
+    parser.add_argument("--json", action="store_true", help="Print as JSON instead of the styled view")
     args = parser.parse_args()
 
     token_path = Path(args.token)
+
+    if not args.json:
+        Ui.banner("Token unlocker")
+        print()
+
     if not token_path.exists():
-        print(f"[ERROR] {token_path} not found. Run generate_token.py first.", file=sys.stderr)
+        if args.json:
+            print(json.dumps({"error": f"{token_path} not found"}))
+        else:
+            Ui.error(f"{token_path} not found.")
+            Ui.info("Run generate_token.py first.")
         sys.exit(1)
 
     with open(token_path, "rb") as f:
         creds = pickle.load(f)
-
-    if not getattr(creds, "refresh_token", None):
-        print(
-            "[WARN] No refresh_token stored on this credential. "
-            "Re-run generate_token.py with --force to get a fresh one "
-            "(Google only issues a refresh_token on first consent, or "
-            "when you pass prompt=consent, which generate_token.py already does).",
-            file=sys.stderr,
-        )
 
     data = {
         "client_id": getattr(creds, "client_id", None),
@@ -55,13 +57,26 @@ def main():
 
     if args.json:
         print(json.dumps(data, indent=2))
-    else:
-        print(f"Client ID:      {data['client_id']}")
-        print(f"Client Secret:  {data['client_secret']}")
-        print(f"Refresh Token:  {data['refresh_token']}")
-        print(f"Token URI:      {data['token_uri']}")
-        print(f"Scopes:         {', '.join(data['scopes']) if data['scopes'] else '(none recorded)'}")
+        return
+
+    if not data["refresh_token"]:
+        Ui.warn("No refresh_token stored on this credential.")
+        Ui.info("Re-run generate_token.py --force to get a fresh one.")
+
+    Ui.rule()
+    Ui.kv("Client ID:", data["client_id"] or "(none)")
+    Ui.kv("Client Secret:", data["client_secret"] or "(none)")
+    Ui.kv("Refresh Token:", data["refresh_token"] or "(none)")
+    Ui.kv("Token URI:", data["token_uri"] or "(none)")
+    Ui.kv("Scopes:", ", ".join(data["scopes"]) if data["scopes"] else "(none recorded)")
+    Ui.rule()
+    Ui.footer()
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print()
+        Ui.warn("Cancelled by user.")
+        sys.exit(130)
