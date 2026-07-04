@@ -14,6 +14,7 @@ redirect capture needed.
 .
 ├── generate_token.py    # main script — reads credentials.json, writes token.pickle
 ├── unlock_token.py       # optional — prints client_id/secret/refresh_token from token.pickle
+├── ui.py                 # shared terminal UI kit (auto-adjusts to screen width)
 ├── setup_termux.sh       # one-time Termux environment setup
 ├── requirements.txt      # Python dependencies
 ├── LICENSE
@@ -266,6 +267,10 @@ enable it manually: Settings → Apps → Termux → Permissions → Storage.
 **`No mirror or mirror group selected` warning during `pkg update`**
 Harmless — Termux is just suggesting you pick a mirror. Ignore it, or run
 `termux-change-repo` if `pkg update` is consistently slow.
+
+## Credits
+
+Built and maintained by **[AaryaKrishna19](https://github.com/AaryaKrishna19)**.
 
 ## License
 
