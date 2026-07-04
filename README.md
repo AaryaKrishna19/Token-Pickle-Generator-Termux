@@ -2,11 +2,20 @@
 
 ![Platform](https://img.shields.io/badge/platform-Termux%20%7C%20Android-3DDC84)
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![License](https://img.shields.io/github/license/AaryaKrishna19/Token-Pickle-Generator-Termux)](https://github.com/AaryaKrishna19/Token-Pickle-Generator-Termux/blob/main/LICENSE)
+[![Stars](https://img.shields.io/github/stars/AaryaKrishna19/Token-Pickle-Generator-Termux?style=social)](https://github.com/AaryaKrishna19/Token-Pickle-Generator-Termux)
+[![Issues](https://img.shields.io/github/issues/AaryaKrishna19/Token-Pickle-Generator-Termux)](https://github.com/AaryaKrishna19/Token-Pickle-Generator-Termux/issues)
 
 Generate a Google OAuth `token.pickle` from `credentials.json`, entirely on
 your Android phone using Termux — no PC, no desktop browser, no localhost
 redirect capture needed.
+
+**Repo:** https://github.com/AaryaKrishna19/Token-Pickle-Generator-Termux
+
+Quick start (already have Termux installed):
+```bash
+pkg install -y git && git clone https://github.com/AaryaKrishna19/Token-Pickle-Generator-Termux.git && cd Token-Pickle-Generator-Termux && bash setup_termux.sh
+```
 
 ## Project structure
 
@@ -92,8 +101,8 @@ because pip is managed as a Termux package, not a pip-managed one.
 
 ```bash
 cd storage/downloads
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/AaryaKrishna19/Token-Pickle-Generator-Termux.git
+cd Token-Pickle-Generator-Termux
 ```
 
 (Replace the URL with wherever you host this repo. `storage/downloads` is the
@@ -110,7 +119,7 @@ so if you're setting this up again later (new phone, fresh Termux), this one
 command is all you need after installing Termux itself:
 
 ```bash
-pkg install -y git && git clone https://github.com/<your-username>/<repo-name>.git && cd <repo-name> && bash setup_termux.sh
+pkg install -y git && git clone https://github.com/AaryaKrishna19/Token-Pickle-Generator-Termux.git && cd Token-Pickle-Generator-Termux && bash setup_termux.sh
 ```
 
 `setup_termux.sh` does the following, in order:
